@@ -1,4 +1,4 @@
-# Author : Conor Lorsung following the examples found at https://iamtrask.github.io/2015/07/12/basic-python-network/
+# Author : Conor Lorsung
 # Purpose: This project is simply a neural network playground
 #          for me to learn more about building neural networks,
 #          their implementations, and their strengths/weaknesses
@@ -18,15 +18,7 @@ for n in file.readlines():
 # Convert datArr into numpyArray(float) type
 datArr = np.array(datArr).astype(float)
 
-
-# Linear-scale normalization
-def normalize(data, nMax, nMin):
-    minimum = np.min(data, axis=0)
-    maximum = np.max(data, axis=0)
-    nrange = maximum - minimum
-    return nMax - (((nMax - nMin) * (maximum - data)) / nrange)
-
-
+# Linear normalization of the data-set
 datArr = datArr / np.linalg.norm(datArr)
 
 
@@ -45,11 +37,14 @@ outArr = np.array([ [0],
                     [0],
                     [0] ])
 
+# Set random seed
 np.random.seed(1)
 
+# Evaluate synapses
 synapse0 = 2*np.random.random((len(datArr[0]), len(datArr))) - 1
 synapse1 = 2*np.random.random((len(outArr), len(outArr[0]))) - 1
 
+# Run the system
 for i in range(40000):
     lay0 = datArr
     lay1 = sig(np.dot(lay0, synapse0))
@@ -64,5 +59,8 @@ for i in range(40000):
     synapse1 += lay1.T.dot(delta2)
     synapse0 += lay0.T.dot(delta1)
 
+# Indicate completion
 print('Complete')
+
+# Output the final (hypothesis) layer of the NN
 print(lay2)
