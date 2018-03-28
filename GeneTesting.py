@@ -30,12 +30,8 @@ def sig(x, derive=False):
         return 1/(1+np.exp(-x))
 
 
-outArr = np.array([ [0],
-                    [0],
-                    [0],
-                    [0],
-                    [0],
-                    [0] ])
+# Initialize hypotheses at 0
+outArr = np.array([[0]] * len(datArr))
 
 # Set random seed
 np.random.seed(1)
@@ -45,7 +41,7 @@ synapse0 = 2*np.random.random((len(datArr[0]), len(datArr))) - 1
 synapse1 = 2*np.random.random((len(outArr), len(outArr[0]))) - 1
 
 # Run the system
-for i in range(40000):
+for i in range(1000):
     lay0 = datArr
     lay1 = sig(np.dot(lay0, synapse0))
     lay2 = sig(np.dot(lay1, synapse1))
