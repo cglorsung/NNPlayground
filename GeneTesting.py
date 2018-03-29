@@ -9,7 +9,7 @@ import numpy as np
 datArr = []
 
 # Read data file
-file = open('Data\\SampleGenes.csv', 'r')
+file = open('Data\\AllGenes.csv', 'r')
 
 # Data file is type CSV, so split on comma's by line
 for n in file.readlines():
