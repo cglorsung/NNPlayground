@@ -15,13 +15,15 @@ def sig(x, derive=False):
 
 
 inArr = np.array([ [1, 0, 1],
+                   [0, 0, 1],
                    [0, 1, 0],
                    [1, 0, 0],
                    [0, 1, 1] ])
 
 hiddenArr = np.array([ [1],
-                       [0],
-                       [0],
+                       [.75],
+                       [.5],
+                       [.25],
                        [1] ])
 
 np.random.seed(10)
@@ -29,7 +31,7 @@ np.random.seed(10)
 synapse0 = 2*np.random.random((3,4))-1
 synapse1 = 2*np.random.random((4,1))-1
 
-for i in range(10000):
+for i in range(1000):
     lay0 = inArr
     lay1 = sig(np.dot(lay0, synapse0))
     lay2 = sig(np.dot(lay1, synapse1))
