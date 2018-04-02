@@ -37,14 +37,7 @@ def sig(x, derive=False):
 
 
 if sup:
-    outArr = np.array([[1],
-                       [1],
-                       [1],
-                       [1],
-                       [0],
-                       [0],
-                       [0],
-                       [0] ])
+    outArr = np.array([[1], [1], [1], [1], [0], [0], [0], [0], [0], [1], [0], [1]])
 else:
     # Initialize hypotheses at 0
     outArr = np.array([[0]] * len(datArr))
@@ -57,7 +50,7 @@ synapse0 = 2*np.random.random((len(datArr[0]), len(datArr))) - 1
 synapse1 = 2*np.random.random((len(outArr), len(outArr[0]))) - 1
 
 # Run the system
-for i in range(1000):
+for i in range(10000):
     lay0 = datArr
     lay1 = sig(np.dot(lay0, synapse0))
     lay2 = sig(np.dot(lay1, synapse1))
@@ -106,12 +99,13 @@ for n in range(0, len(datArr)):
     if classArr[n].__contains__('ALL'):
         labALL.append(lay2)
     else:
+        print(datArr[n])
         labAML.append(lay2)
 
 for n in labAML:
-    print(n)
+    print(n[0])
 
 print('\n')
 
 for n in labALL:
-    print(n)
+    print(n[0])
