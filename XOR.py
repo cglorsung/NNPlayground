@@ -6,9 +6,8 @@
 import numpy as np
 
 
-# Number of iterations to process with the network
+# Number of iterations of training
 iterations = 2000
-
 
 # Logistic sigmoid function
 def sig(x, derive=False):
