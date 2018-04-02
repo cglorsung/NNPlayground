@@ -7,7 +7,7 @@ import numpy as np
 
 
 # Number of iterations of training
-iterations = 2000
+iterations = 100000
 
 # Logistic sigmoid function
 def sig(x, derive=False):

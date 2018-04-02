@@ -8,6 +8,9 @@ import numpy as np
 # Supervised?
 sup = True
 
+# Number of iterations
+iterations = 10000
+
 # Initialize data array
 datArr = []
 
@@ -50,7 +53,7 @@ synapse0 = 2*np.random.random((len(datArr[0]), len(datArr))) - 1
 synapse1 = 2*np.random.random((len(outArr), len(outArr[0]))) - 1
 
 # Run the system
-for i in range(10000):
+for i in range(iterations):
     lay0 = datArr
     lay1 = sig(np.dot(lay0, synapse0))
     lay2 = sig(np.dot(lay1, synapse1))
