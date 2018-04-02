@@ -110,6 +110,7 @@ print('AML')
 for n in labAML:
     print(n[0])
 
+print('------------------')
 print('\n')
 print('ALL')
 for n in labALL:
