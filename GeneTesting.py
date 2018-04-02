@@ -5,8 +5,14 @@
 
 import numpy as np
 
+# Supervised?
+sup = True
+
 # Initialize data array
 datArr = []
+
+# Class label array
+classArr = []
 
 # Read data file
 file = open('Data\\SampleGenes.csv', 'r')
@@ -30,8 +36,18 @@ def sig(x, derive=False):
         return 1/(1+np.exp(-x))
 
 
-# Initialize hypotheses at 0
-outArr = np.array([[0]] * len(datArr))
+if sup:
+    outArr = np.array([[1],
+                       [1],
+                       [1],
+                       [1],
+                       [0],
+                       [0],
+                       [0],
+                       [0] ])
+else:
+    # Initialize hypotheses at 0
+    outArr = np.array([[0]] * len(datArr))
 
 # Set random seed
 np.random.seed(1)
@@ -60,3 +76,42 @@ print('Complete')
 
 # Output the final (hypothesis) layer of the NN
 print(lay2)
+
+datArr = []
+
+# Read data file
+file = open('Data\\AllGenes.csv', 'r')
+
+# Data file is type CSV, so split on comma's by line
+for n in file.readlines():
+    datArr.append(n.split(','))
+
+for n in range(0, len(datArr)):
+    classArr.append(datArr[n][len(datArr[n])-1])
+    datArr[n] = datArr[n][:-1]
+
+# Convert datArr into numpyArray(float) type
+datArr = np.array(datArr).astype(float)
+
+# Linear normalization of the data-set
+datArr = datArr / np.linalg.norm(datArr)
+
+labALL = []
+labAML = []
+
+for n in range(0, len(datArr)):
+    lay0 = datArr[n]
+    lay1 = sig(np.dot(lay0, synapse0))
+    lay2 = sig(np.dot(lay1, synapse1))
+    if classArr[n].__contains__('ALL'):
+        labALL.append(lay2)
+    else:
+        labAML.append(lay2)
+
+for n in labAML:
+    print(n)
+
+print('\n')
+
+for n in labALL:
+    print(n)
