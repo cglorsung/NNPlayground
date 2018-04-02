@@ -105,10 +105,12 @@ for n in range(0, len(datArr)):
         print(datArr[n])
         labAML.append(lay2)
 
+print('\n')
+print('AML')
 for n in labAML:
     print(n[0])
 
 print('\n')
-
+print('ALL')
 for n in labALL:
     print(n[0])
