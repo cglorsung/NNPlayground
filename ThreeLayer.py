@@ -4,6 +4,7 @@
 #          their implementations, and their strengths/weaknesses
 
 import numpy as np
+import Utilities.GenArrays as ga
 
 
 # Sigmoid function (logistic)
@@ -18,12 +19,18 @@ inArr = np.array([ [1, 0, 1],
                    [0, 0, 1],
                    [0, 1, 0],
                    [1, 0, 0],
-                   [0, 1, 1] ])
+                   [0, 1, 1],
+                   [0, 0, 0],
+                   [1, 1, 1],
+                   [1, 1, 0] ])
 
 hiddenArr = np.array([ [1],
-                       [.75],
-                       [.5],
-                       [.25],
+                       [0],
+                       [0],
+                       [0],
+                       [1],
+                       [0],
+                       [0],
                        [1] ])
 
 np.random.seed(10)
@@ -31,7 +38,7 @@ np.random.seed(10)
 synapse0 = 2*np.random.random((3,4))-1
 synapse1 = 2*np.random.random((4,1))-1
 
-for i in range(1000):
+for i in range(10000):
     lay0 = inArr
     lay1 = sig(np.dot(lay0, synapse0))
     lay2 = sig(np.dot(lay1, synapse1))
@@ -50,5 +57,18 @@ for i in range(1000):
 
 
 print('Complete')
-print('LAYER 0:\n', lay0, '\nLAYER 1:\n', lay1, '\nLAYER 2:\n', lay2)
+print('LAYER 2:\n', lay2)
+
+# Set up the training array
+tester = ga.genRandArrays(10, 3, 0, 1, True)
+
+# Run the NN with testing data
+for i in tester:
+    lay0 = i
+    lay1 = sig(np.dot(lay0, synapse0))
+    lay2 = sig(np.dot(lay1, synapse1))
+    if lay2 > .9:
+        print('PASS : ', i, ' : ', lay2)
+    else:
+        print('FAIL : ', i, ' : ', lay2)
 
