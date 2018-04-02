@@ -60,4 +60,19 @@ for i in range(iterations):
 
 
 print('Complete')
-print('Final layer: ', lay2)
+print('Final layer:\n', lay2)
+print('\n')
+
+# Test value array
+tester = np.array([ [1,0], [0,1], [1,0], [0,1], [1,1], [0,0], [1,1], [0,0] ])
+
+for i in tester:
+    lay0 = i
+    lay1 = sig(np.dot(lay0, sy0))
+    lay2 = sig(np.dot(lay1, sy1))
+
+    # Where's my ternary at?
+    if lay2 > .5:
+        print('TRUE : ', i, ' : ', lay2)
+    else:
+        print('FALSE: ', i, ' : ', lay2)
