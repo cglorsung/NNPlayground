@@ -9,7 +9,7 @@ import numpy as np
 sup = True
 
 # Number of iterations
-iterations = 10000
+iterations = 100000
 
 # Initialize data array
 datArr = []
@@ -50,8 +50,13 @@ np.random.seed(1)
 
 # Evaluate synapses
 synapse0 = 2*np.random.random((len(datArr[0]), len(datArr))) - 1
+print('syn0 ', synapse0)
 synapse1 = 2*np.random.random((len(outArr), len(outArr[0]))) - 1
+print('syn1 ', synapse1)
 synapse2 = 2*np.random.random((len(synapse1[0]), len(synapse1))) - 1
+print('syn2 ', synapse2)
+synapse3 = 2*np.random.random((len(outArr), len(outArr[0]))) - 1
+print('syn3 ', synapse3)
 
 # Run the system
 for i in range(iterations):
@@ -59,8 +64,12 @@ for i in range(iterations):
     lay1 = sig(np.dot(lay0, synapse0))
     lay2 = sig(np.dot(lay1, synapse1))
     lay3 = sig(np.dot(lay2, synapse2))
+    lay4 = sig(np.dot(lay3, synapse3))
 
-    error3 = outArr - lay3
+    error4 = outArr - lay4
+    delta4 = error4 * sig(lay4, derive=True)
+
+    error3 = delta4.dot(synapse3.T)
     delta3 = error3 * sig(lay3, derive=True)
 
     error2 = delta3.dot(synapse2.T)
@@ -69,6 +78,7 @@ for i in range(iterations):
     error1 = delta2.dot(synapse1.T)
     delta1 = error1 * sig(lay1, derive=True)
 
+    synapse3 += lay3.T.dot(delta4)
     synapse2 += lay2.T.dot(delta3)
     synapse1 += lay1.T.dot(delta2)
     synapse0 += lay0.T.dot(delta1)
@@ -77,7 +87,7 @@ for i in range(iterations):
 print('Complete')
 
 # Output the final (hypothesis) layer of the NN
-print(lay2)
+print(lay4)
 
 datArr = []
 
@@ -106,11 +116,12 @@ for n in range(0, len(datArr)):
     lay1 = sig(np.dot(lay0, synapse0))
     lay2 = sig(np.dot(lay1, synapse1))
     lay3 = sig(np.dot(lay2, synapse2))
+    lay4 = sig(np.dot(lay3, synapse3))
     if classArr[n].__contains__('ALL'):
-        labALL.append(lay3)
+        labALL.append(lay4)
     else:
         print(datArr[n])
-        labAML.append(lay3)
+        labAML.append(lay4)
 
 print('\n')
 print('AML')
