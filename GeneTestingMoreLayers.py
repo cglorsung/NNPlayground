@@ -9,7 +9,7 @@ import numpy as np
 sup = True
 
 # Number of iterations
-iterations = 100000
+iterations = 1000000
 
 # Initialize data array
 datArr = []
