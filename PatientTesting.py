@@ -9,7 +9,7 @@ import numpy as np
 sup = True
 
 # Number of iterations
-iterations = 1000
+iterations = 10000000
 
 # Initialize data array
 datArr = []
@@ -95,7 +95,8 @@ print('Complete')
 
 # Output the final (hypothesis) layer of the NN
 print(lay4)
-
+print(len(lay4))
+'''
 datArr = []
 
 # Read data file
@@ -141,3 +142,4 @@ print('\n')
 print('ALL')
 for n in labALL:
     print(n[0])
+'''
